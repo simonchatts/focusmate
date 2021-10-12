@@ -7,9 +7,8 @@ with lib;
 let
 
   cfg = config.services.focusmate-notify;
-  # Note: using system pkgs here, assuming that the nushell there is recent
-  # enough for what we need >= 0.35).
-  focusmate-notify = import ./. { };
+  # Note: using system pkgs here, but we manually bring in nushell 0.38.0.
+  focusmate-notify = import ./. { inherit pkgs; };
 
 in
 {
