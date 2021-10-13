@@ -1,8 +1,8 @@
 diff --git a/Cargo.lock b/Cargo.lock
-index 8833c3e5..0c90d2fe 100644
+index 491a05b5..82ed1d91 100644
 --- a/Cargo.lock
 +++ b/Cargo.lock
-@@ -3188,6 +3188,7 @@ dependencies = [
+@@ -2519,6 +2519,7 @@ dependencies = [
   "nu_plugin_xpath",
   "rstest",
   "serial_test",
@@ -10,17 +10,33 @@ index 8833c3e5..0c90d2fe 100644
  ]
 
  [[package]]
-@@ -6954,4 +6955,5 @@ checksum = "615120c7a2431d16cf1cf979e7fc31ba7a5b5e5707b29c8a99e5dbf8a8392a33"
+@@ -4891,12 +4892,13 @@ dependencies = [
+
+ [[package]]
+ name = "sysinfo"
+-version = "0.20.2"
++version = "0.19.2"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "42ef9905d4f98c059046037078f070e66de0f5ac69e5bb63f6bf805b570b3b51"
++checksum = "9e7de153d0438a648bb71e06e300e54fc641685e96af96d49b843f43172d341c"
+ dependencies = [
+  "cfg-if 1.0.0",
+  "core-foundation-sys",
++ "doc-comment",
+  "libc",
+  "ntapi",
+  "once_cell",
+@@ -5664,4 +5666,5 @@ checksum = "615120c7a2431d16cf1cf979e7fc31ba7a5b5e5707b29c8a99e5dbf8a8392a33"
  dependencies = [
   "cc",
   "libc",
 + "pkg-config",
  ]
 diff --git a/Cargo.toml b/Cargo.toml
-index 89e8a311..4cc2331a 100644
+index b1babcd7..d296d629 100644
 --- a/Cargo.toml
 +++ b/Cargo.toml
-@@ -63,6 +63,9 @@ serial_test = "0.5.1"
+@@ -58,6 +58,9 @@ serial_test = "0.5.1"
  hamcrest2 = "0.3.0"
  rstest = "0.10.0"
 
@@ -30,3 +46,16 @@ index 89e8a311..4cc2331a 100644
  [build-dependencies]
 
  [features]
+diff --git a/crates/nu-command/Cargo.toml b/crates/nu-command/Cargo.toml
+index 7f793938..7e477aaa 100644
+--- a/crates/nu-command/Cargo.toml
++++ b/crates/nu-command/Cargo.toml
+@@ -74,7 +74,7 @@ serde_urlencoded = "0.7.0"
+ serde_yaml = "0.8.16"
+ sha2 = "0.9.3"
+ strip-ansi-escapes = "0.1.0"
+-sysinfo = { version = "0.20.2", optional = true }
++sysinfo = { version = "0.19.2", optional = true }
+ thiserror = "1.0.26"
+ term = { version="0.7.0", optional=true }
+ term_size = "0.3.2"
