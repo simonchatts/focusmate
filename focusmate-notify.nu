@@ -28,6 +28,14 @@ let now = (date now)
 # Fetch the sessions
 let sessions = (get_sessions)
 
+# Early exit if sessions are empty, because of the nushell empty vec problem
+# (filtering empty session list causes a type eror later on). The `any?` means
+# the expression works whether we have zero, one, or more sessions - a second
+# helping of the same issue.
+if (any? ($sessions | empty?)) {
+  exit --now
+} { }
+
 # Process 5- and 1-minute limits
 let sent_5min_nfn = (process_and_update 5min "in a few minutes" $state.sent_5min_nfn)
 let sent_1min_nfn = (process_and_update 1min "RIGHT AWAY!" $state.sent_1min_nfn)
