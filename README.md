@@ -13,8 +13,8 @@ use here.
 
 ## Deployment with NixOS
 
-The easiest way to deploy is with NixOS: just add the `module.nix` from this
-repo to your `imports`, and then specify:
+The easiest way to deploy is with NixOS: just add flake overlay and
+nixosModule, and then specify:
 
 ```nix
   services.focusmate-notify = {
@@ -23,10 +23,16 @@ repo to your `imports`, and then specify:
     focusmate-password = "focusmate-password";
     pushover-app-token = "u8qgdt9afs5jp2yy9ruw1g3juylp1n";
     pushover-user-token = "y82q8aofzkbfsbtp41sw65vuueiqy0";
+    user = "some-valid-userid";
+    group = "some-valid-groupid";
   };
 ```
 where you should obviously substitute real values for all these fields. (These
 have been [randomized](https://github.com/simonchatts/hashmash).)
+
+The `user` and `group` items are to work around a current nushell limitation,
+whereby running under a typical system user fails, so it needs a "real" user and
+group to work. Hopefully this will be fixed before too long and these can be removed.
 
 That's it.
 
