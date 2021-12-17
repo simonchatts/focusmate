@@ -1,16 +1,9 @@
 # NixOS module for the `focusmate-notify` service, that sends a phone
 # notification when a FocusMate session is about to start.
-
 { config, lib, pkgs, ... }:
-
 with lib;
 let
-
   cfg = config.services.focusmate-notify;
-  # Note: using system pkgs here, assuming that the nushell there is recent
-  # enough for what we need >= 0.35).
-  focusmate-notify = import ./. { };
-
 in
 {
   #
@@ -62,6 +55,22 @@ in
         Note: this is globally readable in the nix store.
       '';
     };
+
+    # These two options should hopefully go away at some point.
+    user = mkOption {
+      type = types.str;
+      default = "simon";
+      description = ''
+        User to use - nushell doesn't work yet with system users.
+      '';
+    };
+    group = mkOption {
+      type = types.str;
+      default = "simon";
+      description = ''
+        Group to use - nushell doesn't work yet with system users.
+      '';
+    };
   };
 
   #
@@ -101,16 +110,10 @@ in
           SECRETS_FILE = secret-file;
           STATE_DIR = "/var/lib/focusmate-notify";
         };
-        # Explicitly provide `curl` (fine) and also `sh` (which it turns out
-        # nushell invisibly needs to spawn any other process).
-        path = [ pkgs.bash pkgs.curl ];
         serviceConfig = {
-          ExecStart = "${focusmate-notify}/bin/focusmate-notify.nu";
-
-          # Nushell fails when given a minimally-permissioned user, as it tries
-          # (and fails) to create ~/config/nu. So for now, use a real user :-(
-          User = "simon";
-          Group = "simon";
+          ExecStart = "${pkgs.focusmate-notify}/bin/focusmate-notify";
+          User = cfg.user;
+          Group = cfg.group;
         };
       };
     };
