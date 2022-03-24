@@ -82,7 +82,7 @@ def process_and_update [ limit message prev_sent ] {
 
 # Create the `state.json` file if it's missing
 def create_state_if_missing [] {
-  let absent = (test -e $STATE_FILE && echo false || echo true | from json)
+  let absent = (sh -c 'test -e $STATE_FILE && echo false || echo true' | from json)
   if $absent {
     # Need to provide two seed values for each list, to avoid Nushell
     # "simplifying" them into a scalar.
